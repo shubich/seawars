@@ -1,9 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import './style.scss';
 import './simple.css';
 
-class HelloMessage extends React.Component {
+class HelloMessage extends React.Component<any, any> {
   render() {
     return (
       <div>
