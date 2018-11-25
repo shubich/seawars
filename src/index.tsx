@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import './style.scss';
 import './simple.css';
+import './style.scss';
 
 class HelloMessage extends React.Component<any, any> {
   render() {
@@ -14,6 +14,6 @@ class HelloMessage extends React.Component<any, any> {
 }
 
 ReactDOM.render(
-  <HelloMessage name='Andrey' />,
-  document.getElementById('root')
+  <HelloMessage name="Andrey" />,
+  document.getElementById('root'),
 );
