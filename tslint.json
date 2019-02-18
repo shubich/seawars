@@ -12,7 +12,10 @@
       {
         "singleQuote": true,
         "trailingComma": "all"
-      }]
+      }
+    ],
+    "variable-name": [true, "allow-pascal-case"],
+    "interface-name": [true, "always-prefix"]
   },
   "rulesDirectory": []
 }
