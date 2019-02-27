@@ -1,5 +1,15 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import SeaChart from './components/SeaChart';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import rootReducer from 'reducers/rootReducer';
+import Game from 'pages/Game';
 
-ReactDOM.render(<SeaChart />, document.getElementById('root'));
+const store = createStore(rootReducer);
+
+ReactDOM.render(
+  <Provider store={store}>
+    <Game />
+  </Provider>,
+  document.getElementById('root'),
+);
