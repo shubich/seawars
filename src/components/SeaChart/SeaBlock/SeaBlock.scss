@@ -1,0 +1,18 @@
+.SeaBlock {
+  box-sizing: border-box;
+  width: 50px;
+  height: 50px;
+  border: 1px solid black;
+}
+
+.SeaBlock-Ship {
+  background: blue;
+}
+
+.SeaBlock-Fire {
+  background: aquamarine;
+}
+
+.SeaBlock-Ship.SeaBlock-Fire {
+  background: red;
+}

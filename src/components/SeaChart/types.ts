@@ -1,8 +1,5 @@
-export interface ISeaBlock {
-  hasFire: boolean;
-  hasShip: boolean;
-}
+import { ISeaBlock } from 'types/seaTypes';
 
 export interface ISeaChartProps {
-  seaChart?: ISeaBlock[][];
+  seaChart: ISeaBlock[][];
 }

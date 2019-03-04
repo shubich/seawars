@@ -5,15 +5,8 @@
   background: deepskyblue;
   border: 1px solid black;
 
-  .Row {
-    display: flex;
-  }
+}
 
-  .Block {
-    box-sizing: border-box;
-    width: 50px;
-    height: 50px;
-
-    border: 1px solid black;
-  }
+.SeaChart-Row {
+  display: flex;
 }

@@ -1,39 +1,32 @@
 import * as React from 'react';
-import { ISeaChartProps, ISeaBlock } from './types';
+import { ISeaChartProps } from './types';
+import { ISeaBlock } from 'types/seaTypes';
+import seaReducer from 'reducers/sea/seaReducer';
+import { getInitialSeaState } from 'reducers/sea/helpers';
+import SeaBlock from './SeaBlock';
+import { fireToCoordinates } from 'actions/sea/seaActions';
 
 import './SeaChart.scss';
 
-function getInitialState() {
-  const initialState: ISeaBlock[][] = [];
-  const defaultSeaBlock: ISeaBlock = {
-    hasFire: false,
-    hasShip: false,
-  };
+const SeaChart: React.FC = () => {
+  const [state, dispatch] = React.useReducer(seaReducer, getInitialSeaState());
 
-  for (let i = 0; i < 10; i += 1) {
-    for (let j = 0; j < 10; j += 1) {
-      if (j === 0) {
-        initialState[i] = [];
-      }
+  function renderRow(row: ISeaBlock[], rowIndex: number) {
+    const Row = row.map((block, blockIndex) => {
+      return (
+        <SeaBlock
+          key={`${rowIndex}-${blockIndex}`}
+          block={block}
+          // tslint:disable-next-line:jsx-no-lambda
+          fire={() => dispatch(fireToCoordinates(rowIndex, blockIndex))}
+        />
+      );
+    });
 
-      initialState[i][j] = { ...defaultSeaBlock };
-    }
+    return <div className="SeaChart-Row">{Row}</div>;
   }
 
-  return initialState;
-}
-
-function renderBlock(block: ISeaBlock) {
-  return <div className="Block" />;
-}
-
-function renderRow(row: ISeaBlock[]) {
-  const Row = row.map(renderBlock);
-  return <div className="Row">{Row}</div>;
-}
-
-const SeaChart = ({ seaChart = getInitialState() }: ISeaChartProps) => {
-  const Sea = seaChart.map(renderRow);
+  const Sea = state.mySea.map(renderRow);
   return <div className="SeaChart">{Sea}</div>;
 };
 

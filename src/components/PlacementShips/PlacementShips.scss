@@ -1,0 +1,15 @@
+.PlacementShips-Ships {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.PlacementShips-Ship {
+  border: 1px solid black;
+}
+
+.PlacementShips-ShipBlock {
+  height: 50px;
+  width: 50px;
+  border: 1px solid black;
+}

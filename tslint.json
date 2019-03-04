@@ -15,7 +15,8 @@
       }
     ],
     "variable-name": [true, "allow-pascal-case"],
-    "interface-name": [true, "always-prefix"]
+    "interface-name": [true, "always-prefix"],
+    "ter-arrow-parens": false
   },
   "rulesDirectory": []
 }
