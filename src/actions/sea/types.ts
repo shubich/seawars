@@ -1,3 +1,5 @@
+import { ICoordinates } from 'types/seaTypes';
+
 export enum ActionTypesSea {
   PLACE_SHIP = 'PLACE_SHIP',
   FIRE_TO_COORDINATES = 'FIRE_TO_COORDINATES',
@@ -5,15 +7,13 @@ export enum ActionTypesSea {
 }
 
 export interface IPlaceShip {
-  x: number;
-  y: number;
+  coordinates: ICoordinates;
   shipSize: number;
   type: ActionTypesSea.PLACE_SHIP;
 }
 
 export interface IFireToCoordinates {
-  x: number;
-  y: number;
+  coordinates: ICoordinates;
   type: ActionTypesSea.FIRE_TO_COORDINATES;
 }
 

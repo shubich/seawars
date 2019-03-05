@@ -13,12 +13,14 @@ const SeaChart: React.FC = () => {
 
   function renderRow(row: ISeaBlock[], rowIndex: number) {
     const Row = row.map((block, blockIndex) => {
+      const coordinates = { x: blockIndex, y: rowIndex };
+
       return (
         <SeaBlock
           key={`${rowIndex}-${blockIndex}`}
           block={block}
           // tslint:disable-next-line:jsx-no-lambda
-          fire={() => dispatch(fireToCoordinates(rowIndex, blockIndex))}
+          fire={() => dispatch(fireToCoordinates(coordinates))}
         />
       );
     });

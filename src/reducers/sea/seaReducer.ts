@@ -1,6 +1,6 @@
 import { ActionTypesSea, ISeaActions } from 'actions/sea/types';
 import { getInitialSeaState } from './helpers';
-import deepCopyOfObject from 'utils/deepCopyOfObject';
+import updateSeaAfterShot from 'utils/updateSeaAfterShot';
 
 const initialState = getInitialSeaState();
 
@@ -8,16 +8,11 @@ export default function seaReducer(state = initialState, action: ISeaActions) {
   switch (action.type) {
     case ActionTypesSea.PLACE_SHIP:
       return state;
-    case ActionTypesSea.FIRE_TO_COORDINATES: {
-      // @TODO: Highlight
-      const sea = deepCopyOfObject(state.mySea);
-      sea[action.x][action.y].hasFire = true;
-
+    case ActionTypesSea.FIRE_TO_COORDINATES:
       return {
         ...state,
-        mySea: sea,
+        mySea: updateSeaAfterShot(state.mySea, action.coordinates),
       };
-    }
     case ActionTypesSea.RESET_SEA:
       return getInitialSeaState();
     default:
