@@ -22,7 +22,7 @@ const SeaBlock: React.FC<{
     [className, block, isEnemy],
   );
 
-  return <div className={seaBlockClassname} onClick={() => fire} />;
+  return <div className={seaBlockClassname} onClick={() => fire()} />;
 };
 
 export default SeaBlock;
