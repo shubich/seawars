@@ -5,6 +5,8 @@ import { createStore } from 'redux';
 import rootReducer from 'reducers/rootReducer';
 import Game from 'pages/Game';
 
+import 'normalize.css';
+
 const store = createStore(rootReducer);
 
 ReactDOM.render(

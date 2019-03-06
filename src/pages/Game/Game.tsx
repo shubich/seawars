@@ -1,12 +1,22 @@
 import * as React from 'react';
 import SeaChart from 'components/SeaChart';
-// import PlacementShips from 'components/PlacementShips';
+import seaReducer from 'reducers/sea/seaReducer';
+import { getInitialSeaState } from 'reducers/sea/helpers';
+import { fireToCoordinates } from 'actions/sea/seaActions';
 
-const Game = () => {
+import './Game.scss';
+
+const Game: React.FC = () => {
+  const [state, dispatch] = React.useReducer(seaReducer, getInitialSeaState());
+
   return (
     <div className="Game">
-      <SeaChart />
-      {/* <PlacementShips shipsToPlace={[1, 1, 1, 1, 2, 2, 2, 3, 3, 4].reverse()} /> */}
+      <SeaChart sea={state.mySea} />
+      <SeaChart
+        isEnemy={true}
+        sea={state.enemySea}
+        fire={coordinates => dispatch(fireToCoordinates(coordinates))}
+      />
     </div>
   );
 };

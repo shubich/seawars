@@ -6,7 +6,9 @@
 }
 
 .SeaBlock-Ship {
-  background: blue;
+  &:not(.SeaBlock-Ship_enemy) {
+    background: blue;
+  }
 }
 
 .SeaBlock-Fire {

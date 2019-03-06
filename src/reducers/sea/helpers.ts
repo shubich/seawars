@@ -8,7 +8,7 @@ const getDefaultShipsToPlace = () => [1, 1, 1, 1, 2, 2, 2, 3, 3, 4];
 export const getInitialSeaState = (): ISeaState => {
   return {
     mySea: getSeaWithRandomShips(),
-    enemySea: getEmptySea(),
+    enemySea: getSeaWithRandomShips(),
     myShipsToPlace: getDefaultShipsToPlace(),
     enemyShipsToPlace: getDefaultShipsToPlace(),
   };

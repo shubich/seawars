@@ -1,19 +1,28 @@
 import * as React from 'react';
-import { ISeaBlock } from 'types/seaTypes';
 import * as classNames from 'classnames';
+import { ISeaBlock } from 'types/seaTypes';
 
 import './SeaBlock.scss';
 
-const SeaBlock: React.FC<{ block: ISeaBlock; fire: () => void }> = ({
-  block,
-  fire,
-}) => {
-  const seaBlockClassname = classNames('SeaBlock', {
-    'SeaBlock-Ship': block.hasShip,
-    'SeaBlock-Fire': block.hasFire,
-  });
+const { useMemo } = React;
 
-  return <div className={seaBlockClassname} onClick={fire} />;
+const SeaBlock: React.FC<{
+  block: ISeaBlock;
+  isEnemy: boolean;
+  className?: string;
+  fire: () => void;
+}> = ({ block, fire, className, isEnemy }) => {
+  const seaBlockClassname = useMemo(
+    () =>
+      classNames('SeaBlock', className, {
+        'SeaBlock-Ship': block.hasShip,
+        'SeaBlock-Ship_enemy': isEnemy,
+        'SeaBlock-Fire': block.hasFire,
+      }),
+    [className, block, isEnemy],
+  );
+
+  return <div className={seaBlockClassname} onClick={() => fire} />;
 };
 
 export default SeaBlock;

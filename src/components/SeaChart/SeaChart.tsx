@@ -1,34 +1,37 @@
 import * as React from 'react';
-import { ISeaChartProps } from './types';
-import { ISeaBlock } from 'types/seaTypes';
-import seaReducer from 'reducers/sea/seaReducer';
-import { getInitialSeaState } from 'reducers/sea/helpers';
+import { ISeaBlock, ICoordinates } from 'types/seaTypes';
 import SeaBlock from './SeaBlock';
-import { fireToCoordinates } from 'actions/sea/seaActions';
 
 import './SeaChart.scss';
 
-const SeaChart: React.FC = () => {
-  const [state, dispatch] = React.useReducer(seaReducer, getInitialSeaState());
-
-  function renderRow(row: ISeaBlock[], rowIndex: number) {
+const SeaChart: React.FC<{
+  isEnemy?: boolean;
+  sea: ISeaBlock[][];
+  fire?: (coordinates: ICoordinates) => void;
+}> = ({ sea, fire, isEnemy = false }) => {
+  const renderRow = (row: ISeaBlock[], rowIndex: number) => {
     const Row = row.map((block, blockIndex) => {
-      const coordinates = { x: blockIndex, y: rowIndex };
+      const handleFire = () => {
+        if (fire) {
+          const coordinates = { x: blockIndex, y: rowIndex };
+          fire(coordinates);
+        }
+      };
 
       return (
         <SeaBlock
           key={`${rowIndex}-${blockIndex}`}
           block={block}
-          // tslint:disable-next-line:jsx-no-lambda
-          fire={() => dispatch(fireToCoordinates(coordinates))}
+          isEnemy={isEnemy}
+          fire={handleFire}
         />
       );
     });
 
     return <div className="SeaChart-Row">{Row}</div>;
-  }
+  };
 
-  const Sea = state.mySea.map(renderRow);
+  const Sea = sea.map(renderRow);
   return <div className="SeaChart">{Sea}</div>;
 };
 

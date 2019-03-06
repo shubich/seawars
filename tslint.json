@@ -16,7 +16,9 @@
     ],
     "variable-name": [true, "allow-pascal-case"],
     "interface-name": [true, "always-prefix"],
-    "ter-arrow-parens": false
+    "ter-arrow-parens": false,
+    "jsx-no-lambda": false,
+    "no-unused-variable": true
   },
   "rulesDirectory": []
 }

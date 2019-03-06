@@ -11,7 +11,7 @@ export default function seaReducer(state = initialState, action: ISeaActions) {
     case ActionTypesSea.FIRE_TO_COORDINATES:
       return {
         ...state,
-        mySea: updateSeaAfterShot(state.mySea, action.coordinates),
+        enemySea: updateSeaAfterShot(state.enemySea, action.coordinates),
       };
     case ActionTypesSea.RESET_SEA:
       return getInitialSeaState();
