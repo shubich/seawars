@@ -74,16 +74,16 @@ export const AIShot = (
     if (deadBlocksCount > 1) {
       const isHorizontalShip = shipCoordinates[0].y === shipCoordinates[1].y;
       const isVerticalShip = !isHorizontalShip;
+      const { x, y } = shipInProgressCoordinates;
 
       if (isHorizontalShip) {
-        const { x, y } = shipInProgressCoordinates;
         let tmpX = x + 1;
 
         while (tmpX <= 9 && seaToAttack[y][tmpX].hasFire) {
           tmpX += 1;
         }
 
-        if (tmpX <= 9) {
+        if (tmpX <= 9 && seaToAttack[y][tmpX - 1].hasShip) {
           availableCoordinates.push({ y, x: tmpX });
         }
 
@@ -93,18 +93,17 @@ export const AIShot = (
           tmpX -= 1;
         }
 
-        if (tmpX >= 0) {
+        if (tmpX >= 0 && seaToAttack[y][tmpX + 1].hasShip) {
           availableCoordinates.push({ y, x: tmpX });
         }
       } else if (isVerticalShip) {
-        const { x, y } = shipInProgressCoordinates;
         let tmpY = y + 1;
 
         while (tmpY <= 9 && seaToAttack[tmpY][x].hasFire) {
           tmpY += 1;
         }
 
-        if (tmpY <= 9) {
+        if (tmpY <= 9 && seaToAttack[tmpY - 1][x].hasShip) {
           availableCoordinates.push({ x, y: tmpY });
         }
 
@@ -114,28 +113,41 @@ export const AIShot = (
           tmpY -= 1;
         }
 
-        if (tmpY >= 0) {
+        if (tmpY >= 0 && seaToAttack[tmpY + 1][x].hasShip) {
           availableCoordinates.push({ x, y: tmpY });
         }
       }
     } else {
       const { x, y } = shipInProgressCoordinates;
 
-      if (x < 9) {
-        availableCoordinates.push({ y, x: x + 1 });
+      const left = x - 1;
+      const right = x + 1;
+      const top = y - 1;
+      const bottom = y + 1;
+
+      if (x < 9 && !seaToAttack[y][right].hasFire) {
+        availableCoordinates.push({ y, x: right });
       }
 
-      if (x > 0) {
-        availableCoordinates.push({ y, x: x - 1 });
+      if (x > 0 && !seaToAttack[y][left].hasFire) {
+        availableCoordinates.push({ y, x: left });
       }
 
-      if (y < 9) {
-        availableCoordinates.push({ x, y: y + 1 });
+      if (y < 9 && !seaToAttack[bottom][x].hasFire) {
+        availableCoordinates.push({ x, y: bottom });
       }
 
-      if (y > 0) {
-        availableCoordinates.push({ x, y: y - 1 });
+      if (y > 0 && !seaToAttack[top][x].hasFire) {
+        availableCoordinates.push({ x, y: top });
       }
+    }
+
+    if (!availableCoordinates.length) {
+      throw new Error('Unable to find free coordinates');
+    }
+
+    if (availableCoordinates.some(({ x, y }) => seaToAttack[y][x].hasFire)) {
+      throw new Error('Fire to the coordinates more than once');
     }
 
     const randomIndex = getRandomInteger(0, availableCoordinates.length - 1);
