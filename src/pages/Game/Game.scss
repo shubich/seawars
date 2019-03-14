@@ -1,4 +1,15 @@
 .Game {
+  padding: 15px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.Game-Manage {
+  margin-bottom: 15px;
+}
+
+.Game-Sea {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
 }

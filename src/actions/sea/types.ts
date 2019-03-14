@@ -3,6 +3,7 @@ import { ICoordinates } from 'types/seaTypes';
 export enum ActionTypesSea {
   PLACE_SHIP = 'PLACE_SHIP',
   FIRE_TO_COORDINATES = 'FIRE_TO_COORDINATES',
+  AI_FIRE_TO_COORDINATES = 'AI_FIRE_TO_COORDINATES',
   RESET_SEA = 'RESET_SEA',
 }
 
@@ -17,8 +18,17 @@ export interface IFireToCoordinates {
   type: ActionTypesSea.FIRE_TO_COORDINATES;
 }
 
+export interface IAIFireToCoordinates {
+  coordinates: ICoordinates;
+  type: ActionTypesSea.AI_FIRE_TO_COORDINATES;
+}
+
 export interface IResetSea {
   type: ActionTypesSea.RESET_SEA;
 }
 
-export type ISeaActions = IPlaceShip | IFireToCoordinates | IResetSea;
+export type ISeaActions =
+  | IPlaceShip
+  | IFireToCoordinates
+  | IAIFireToCoordinates
+  | IResetSea;

@@ -4,6 +4,7 @@ import {
   IPlaceShip,
   IFireToCoordinates,
   IResetSea,
+  IAIFireToCoordinates,
 } from './types';
 
 export const placeShip = (
@@ -20,6 +21,13 @@ export const fireToCoordinates = (
 ): IFireToCoordinates => ({
   coordinates,
   type: ActionTypesSea.FIRE_TO_COORDINATES,
+});
+
+export const AIFireToCoordinates = (
+  coordinates: ICoordinates,
+): IAIFireToCoordinates => ({
+  coordinates,
+  type: ActionTypesSea.AI_FIRE_TO_COORDINATES,
 });
 
 export const resetSea = (): IResetSea => ({
