@@ -1,52 +1,18 @@
 import { ICoordinates, ISeaBlock } from 'types/seaTypes';
 import { getRandomInteger, getRandomBoolean } from 'utils/random';
 import getShipCoordinates from 'utils/getShipCoordinates';
+import getArrayOfFreeCoordinates from 'utils/getArrayOfFreeCoordinates';
 
-const getFirstFreeCoordinates = (sea: ISeaBlock[][]): ICoordinates => {
-  for (let y = 0; y < 10; y += 1) {
-    for (let x = 0; x < 10; x += 1) {
-      if (!sea[y][x].hasFire) {
-        return { x, y };
-      }
-    }
+export const randomShot = (seaToAttack: ISeaBlock[][]): ICoordinates => {
+  const arrayOfFreeCoordinates = getArrayOfFreeCoordinates(seaToAttack);
+
+  if (!arrayOfFreeCoordinates.length) {
+    throw new Error('Unable to find free coordinates');
   }
 
-  throw new Error("The target sea hasn't free block");
-};
+  const randomIndex = getRandomInteger(0, arrayOfFreeCoordinates.length - 1);
 
-const getLastFreeCoordinates = (sea: ISeaBlock[][]): ICoordinates => {
-  for (let y = 9; y >= 0; y -= 1) {
-    for (let x = 9; x >= 0; x -= 1) {
-      if (!sea[y][x].hasFire) {
-        return { x, y };
-      }
-    }
-  }
-
-  throw new Error("The target sea hasn't free block");
-};
-
-const randomShot = (seaToAttack: ISeaBlock[][]): ICoordinates => {
-  let triesCount = 0;
-  let x: number;
-  let y: number;
-
-  while (triesCount < 20) {
-    triesCount += 1;
-    x = getRandomInteger(0, 9);
-    y = getRandomInteger(0, 9);
-
-    if (!seaToAttack[y][x].hasFire) {
-      return { x, y };
-    }
-  }
-
-  // @TOTO: we also can use a range of free coordinates to make random shot
-  if (getRandomBoolean()) {
-    return getFirstFreeCoordinates(seaToAttack);
-  }
-
-  return getLastFreeCoordinates(seaToAttack);
+  return arrayOfFreeCoordinates[randomIndex];
 };
 
 export const AIShot = (

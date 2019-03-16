@@ -23,10 +23,14 @@ export const getStateAfterShot = (
   coordinates: ICoordinates,
   shipInProgress: ICoordinates | null,
 ): { sea: ISeaBlock[][]; shipInProgress: ICoordinates | null } => {
+  const { x, y } = coordinates;
+
+  if (sea[y][x].hasFire) {
+    throw new Error('Fire to the coordinates more than once');
+  }
+
   let newSea = deepCopyOfObject(sea);
   let newShipInProgress = deepCopyOfObject(shipInProgress);
-
-  const { x, y } = coordinates;
 
   newSea[y][x].hasFire = true;
 
