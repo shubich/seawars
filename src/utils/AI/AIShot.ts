@@ -1,21 +1,9 @@
-import { ICoordinates, ISeaBlock } from 'types/seaTypes';
-import { getRandomInteger, getRandomBoolean } from 'utils/random';
 import getShipCoordinates from 'utils/getShipCoordinates';
-import getArrayOfFreeCoordinates from 'utils/getArrayOfFreeCoordinates';
+import { ISeaBlock, ICoordinates } from 'types/seaTypes';
+import { getRandomInteger } from 'utils/random';
+import { randomShot } from 'utils/AI/randomShot';
 
-export const randomShot = (seaToAttack: ISeaBlock[][]): ICoordinates => {
-  const arrayOfFreeCoordinates = getArrayOfFreeCoordinates(seaToAttack);
-
-  if (!arrayOfFreeCoordinates.length) {
-    throw new Error('Unable to find free coordinates');
-  }
-
-  const randomIndex = getRandomInteger(0, arrayOfFreeCoordinates.length - 1);
-
-  return arrayOfFreeCoordinates[randomIndex];
-};
-
-export const AIShot = (
+const AIShot = (
   seaToAttack: ISeaBlock[][],
   shipInProgressCoordinates: ICoordinates | null,
 ): ICoordinates => {
@@ -123,3 +111,5 @@ export const AIShot = (
 
   return randomShot(seaToAttack);
 };
+
+export default AIShot;

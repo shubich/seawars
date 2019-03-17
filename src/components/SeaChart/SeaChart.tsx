@@ -28,7 +28,11 @@ const SeaChart: React.FC<{
       );
     });
 
-    return <div className="SeaChart-Row">{Row}</div>;
+    return (
+      <div key={rowIndex} className="SeaChart-Row">
+        {Row}
+      </div>
+    );
   };
 
   const Sea = sea.map(renderRow);

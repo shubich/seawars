@@ -3,12 +3,24 @@ import SeaChart from 'components/SeaChart';
 import seaReducer from 'reducers/sea/seaReducer';
 import { getInitialSeaState } from 'reducers/sea/helpers';
 import { fireToCoordinates, AIFireToCoordinates } from 'actions/sea/seaActions';
-import { AIShot } from 'utils/AI';
+import AIShot from 'utils/AI/AIShot';
 
 import './Game.scss';
 
 const Game: React.FC = () => {
   const [state, dispatch] = React.useReducer(seaReducer, getInitialSeaState());
+
+  // const aiMove = React.useCallback(() => {
+  //   dispatch(AIFireToCoordinates(AIShot(state.mySea, state.AIShipInProgress)));
+  // }, [state]);
+
+  // React.useEffect(() => {
+  //   const intervalId = setInterval(aiMove, 500);
+
+  //   return () => {
+  //     clearInterval(intervalId);
+  //   };
+  // }, [state]);
 
   return (
     <div className="Game">
