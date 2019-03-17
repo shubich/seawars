@@ -2,7 +2,11 @@ import * as React from 'react';
 import SeaChart from 'components/SeaChart';
 import seaReducer from 'reducers/sea/seaReducer';
 import { getInitialSeaState } from 'reducers/sea/helpers';
-import { fireToCoordinates, AIFireToCoordinates } from 'actions/sea/seaActions';
+import {
+  fireToCoordinates,
+  AIFireToCoordinates,
+  resetSea,
+} from 'actions/sea/seaActions';
 import AIShot from 'utils/AI/AIShot';
 import { ICoordinates } from 'types/seaTypes';
 
@@ -32,7 +36,11 @@ const Game: React.FC = () => {
     if (winner) return;
     if (state.isPlayerTurn) return;
 
-    setTimeout(aiMove, 1000);
+    const timeoutID = setTimeout(aiMove, 1000);
+
+    return () => {
+      clearTimeout(timeoutID);
+    };
   }, [winner, state]);
 
   const playerMove = useCallback(
@@ -45,17 +53,24 @@ const Game: React.FC = () => {
     [winner, state],
   );
 
-  const renderManagePanel = useMemo(() => {
+  const gameStatus = useMemo(() => {
     if (winner) {
-      return <h1>{winner} won</h1>;
+      return `${winner} won!`;
     }
 
-    return <h1>{state.isPlayerTurn ? 'Player' : 'AI'} turn</h1>;
+    return `${state.isPlayerTurn ? 'Player' : 'AI'} turn`;
   }, [winner, state]);
+
+  const startNewGame = useCallback(() => {
+    dispatch(resetSea());
+  }, []);
 
   return (
     <div className="Game">
-      <div className="Game-Manage">{renderManagePanel}</div>
+      <div className="Game-Control">
+        <h1 className="Game-Status">{gameStatus}</h1>
+        <button onClick={() => startNewGame()}>New game</button>
+      </div>
       <div className="Game-Sea">
         <SeaChart sea={state.playerSea} />
         <SeaChart isEnemy={true} sea={state.enemySea} fire={playerMove} />

@@ -4,8 +4,12 @@
   margin: 0 auto;
 }
 
-.Game-Manage {
+.Game-Control {
   margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 300px;
 }
 
 .Game-Sea {
