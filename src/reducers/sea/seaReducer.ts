@@ -15,7 +15,7 @@ export default function seaReducer(
       const { sea, shipInProgress, hit, killedShip } = getStateAfterShot(
         state.enemySea,
         action.coordinates,
-        null,
+        state.enemyShipInProgress,
       );
 
       return {

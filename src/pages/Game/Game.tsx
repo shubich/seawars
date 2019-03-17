@@ -36,7 +36,23 @@ const Game: React.FC = () => {
     if (winner) return;
     if (state.isPlayerTurn) return;
 
-    const timeoutID = setTimeout(aiMove, 1000);
+    const timeoutID = setTimeout(aiMove, 500);
+
+    return () => {
+      clearTimeout(timeoutID);
+    };
+  }, [winner, state]);
+
+  // AI play player role
+  useEffect(() => {
+    if (winner) return;
+    if (!state.isPlayerTurn) return;
+
+    const timeoutID = setTimeout(() => {
+      dispatch(
+        fireToCoordinates(AIShot(state.enemySea, state.enemyShipInProgress)),
+      );
+    }, 500);
 
     return () => {
       clearTimeout(timeoutID);
@@ -63,6 +79,7 @@ const Game: React.FC = () => {
 
   const startNewGame = useCallback(() => {
     dispatch(resetSea());
+    setWinner(null);
   }, []);
 
   return (
