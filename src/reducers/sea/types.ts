@@ -7,5 +7,7 @@ export interface ISeaState {
   enemyShipsToPlace: number[];
   playerShipInProgress: ICoordinates | null; // when enemy wounded player
   enemyShipInProgress: ICoordinates | null; // when player wounded enemy
+  playerKills: number; // count of killed ships by player
+  enemyKills: number; // count of killed ships by enemy
   isPlayerTurn: boolean;
 }

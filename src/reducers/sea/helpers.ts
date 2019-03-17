@@ -16,6 +16,8 @@ export const getInitialSeaState = (): ISeaState => {
     enemyShipsToPlace: getDefaultShipsToPlace(),
     playerShipInProgress: null,
     enemyShipInProgress: null,
+    playerKills: 0,
+    enemyKills: 0,
     isPlayerTurn: true,
   };
 };
