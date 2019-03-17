@@ -2,7 +2,7 @@ import { ICoordinates, ISeaBlock } from 'types/seaTypes';
 import { getRandomInteger } from 'utils/random';
 import getArrayOfFreeCoordinates from 'utils/getArrayOfFreeCoordinates';
 
-export const randomShot = (seaToAttack: ISeaBlock[][]): ICoordinates => {
+const randomShot = (seaToAttack: ISeaBlock[][]): ICoordinates => {
   const arrayOfFreeCoordinates = getArrayOfFreeCoordinates(seaToAttack);
 
   if (!arrayOfFreeCoordinates.length) {
@@ -13,3 +13,5 @@ export const randomShot = (seaToAttack: ISeaBlock[][]): ICoordinates => {
 
   return arrayOfFreeCoordinates[randomIndex];
 };
+
+export default randomShot;
