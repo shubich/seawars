@@ -10,11 +10,13 @@ const getDefaultShipsToPlace = () => [1, 1, 1, 1, 2, 2, 2, 3, 3, 4];
 
 export const getInitialSeaState = (): ISeaState => {
   return {
-    mySea: getSeaWithRandomShips(),
+    playerSea: getSeaWithRandomShips(),
     enemySea: getSeaWithRandomShips(),
-    myShipsToPlace: getDefaultShipsToPlace(),
+    playerShipsToPlace: getDefaultShipsToPlace(),
     enemyShipsToPlace: getDefaultShipsToPlace(),
-    AIShipInProgress: null,
+    playerShipInProgress: null,
+    enemyShipInProgress: null,
+    isPlayerTurn: true,
   };
 };
 

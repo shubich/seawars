@@ -1,9 +1,11 @@
 import { ISeaBlock, ICoordinates } from 'types/seaTypes';
 
 export interface ISeaState {
-  mySea: ISeaBlock[][];
+  playerSea: ISeaBlock[][];
   enemySea: ISeaBlock[][];
-  myShipsToPlace: number[];
+  playerShipsToPlace: number[];
   enemyShipsToPlace: number[];
-  AIShipInProgress: ICoordinates | null;
+  playerShipInProgress: ICoordinates | null; // when enemy wounded player
+  enemyShipInProgress: ICoordinates | null; // when player wounded enemy
+  isPlayerTurn: boolean;
 }

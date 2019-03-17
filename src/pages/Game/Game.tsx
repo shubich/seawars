@@ -11,7 +11,9 @@ const Game: React.FC = () => {
   const [state, dispatch] = React.useReducer(seaReducer, getInitialSeaState());
 
   // const aiMove = React.useCallback(() => {
-  //   dispatch(AIFireToCoordinates(AIShot(state.mySea, state.AIShipInProgress)));
+  //   dispatch(
+  //     AIFireToCoordinates(AIShot(state.playerSea, state.playerShipInProgress)),
+  //   );
   // }, [state]);
 
   // React.useEffect(() => {
@@ -29,7 +31,9 @@ const Game: React.FC = () => {
           // tslint:disable-next-line: jsx-no-multiline-js
           onClick={() => {
             dispatch(
-              AIFireToCoordinates(AIShot(state.mySea, state.AIShipInProgress)),
+              AIFireToCoordinates(
+                AIShot(state.playerSea, state.playerShipInProgress),
+              ),
             );
           }}
         >
@@ -37,7 +41,7 @@ const Game: React.FC = () => {
         </button>
       </div>
       <div className="Game-Sea">
-        <SeaChart sea={state.mySea} />
+        <SeaChart sea={state.playerSea} />
         <SeaChart
           isEnemy={true}
           sea={state.enemySea}

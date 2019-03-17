@@ -1,14 +1,18 @@
 import { ActionTypesSea, ISeaActions } from 'actions/sea/types';
 import { getInitialSeaState, getStateAfterShot } from './helpers';
+import { ISeaState } from './types';
 
 const initialState = getInitialSeaState();
 
-export default function seaReducer(state = initialState, action: ISeaActions) {
+export default function seaReducer(
+  state = initialState,
+  action: ISeaActions,
+): ISeaState {
   switch (action.type) {
     case ActionTypesSea.PLACE_SHIP:
       return state;
     case ActionTypesSea.FIRE_TO_COORDINATES: {
-      const { sea } = getStateAfterShot(
+      const { sea, shipInProgress } = getStateAfterShot(
         state.enemySea,
         action.coordinates,
         null,
@@ -17,19 +21,20 @@ export default function seaReducer(state = initialState, action: ISeaActions) {
       return {
         ...state,
         enemySea: sea,
+        enemyShipInProgress: shipInProgress,
       };
     }
     case ActionTypesSea.AI_FIRE_TO_COORDINATES: {
       const { sea, shipInProgress } = getStateAfterShot(
-        state.mySea,
+        state.playerSea,
         action.coordinates,
-        state.AIShipInProgress,
+        state.playerShipInProgress,
       );
 
       return {
         ...state,
-        mySea: sea,
-        AIShipInProgress: shipInProgress,
+        playerSea: sea,
+        playerShipInProgress: shipInProgress,
       };
     }
     case ActionTypesSea.RESET_SEA:
