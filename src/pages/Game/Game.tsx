@@ -27,6 +27,7 @@ const Game: React.FC = () => {
   return (
     <div className="Game">
       <div className="Game-Manage">
+        <h1>{state.isPlayerTurn ? 'Player' : 'AI'} turn</h1>
         <button
           // tslint:disable-next-line: jsx-no-multiline-js
           onClick={() => {

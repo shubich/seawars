@@ -12,7 +12,7 @@ export default function seaReducer(
     case ActionTypesSea.PLACE_SHIP:
       return state;
     case ActionTypesSea.FIRE_TO_COORDINATES: {
-      const { sea, shipInProgress } = getStateAfterShot(
+      const { sea, shipInProgress, hit } = getStateAfterShot(
         state.enemySea,
         action.coordinates,
         null,
@@ -22,10 +22,11 @@ export default function seaReducer(
         ...state,
         enemySea: sea,
         enemyShipInProgress: shipInProgress,
+        isPlayerTurn: hit,
       };
     }
     case ActionTypesSea.AI_FIRE_TO_COORDINATES: {
-      const { sea, shipInProgress } = getStateAfterShot(
+      const { sea, shipInProgress, hit } = getStateAfterShot(
         state.playerSea,
         action.coordinates,
         state.playerShipInProgress,
@@ -35,6 +36,7 @@ export default function seaReducer(
         ...state,
         playerSea: sea,
         playerShipInProgress: shipInProgress,
+        isPlayerTurn: !hit,
       };
     }
     case ActionTypesSea.RESET_SEA:
