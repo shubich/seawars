@@ -1,21 +1,15 @@
 import { ISeaBlock } from 'types/seaTypes';
+import create2DMatrix from 'utils/create2DMatrix';
 
 const getEmptySea = () => {
-  const sea: ISeaBlock[][] = [];
   const defaultSeaBlock: ISeaBlock = {
     hasFire: false,
     hasShip: false,
   };
 
-  for (let i = 0; i < 10; i += 1) {
-    for (let j = 0; j < 10; j += 1) {
-      if (j === 0) {
-        sea[i] = [];
-      }
-
-      sea[i][j] = { ...defaultSeaBlock };
-    }
-  }
+  const sea = create2DMatrix(10, 10, defaultSeaBlock, seaBlock => ({
+    ...seaBlock,
+  }));
 
   return sea;
 };

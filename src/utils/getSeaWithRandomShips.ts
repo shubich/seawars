@@ -1,4 +1,3 @@
-import { ISeaBlock } from 'types/seaTypes';
 import getEmptySea from 'utils/getEmptySea';
 
 const getRandomShipPositions = (): (0 | 1)[][] => [
