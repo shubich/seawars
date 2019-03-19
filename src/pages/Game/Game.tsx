@@ -75,8 +75,12 @@ const Game: React.FC = () => {
       return `${winner} won!`;
     }
 
+    if (speed < 100) {
+      return '...';
+    }
+
     return `${state.isPlayerTurn ? 'Player' : 'AI'} turn`;
-  }, [winner, state]);
+  }, [winner, state, speed]);
 
   const startNewGame = useCallback(() => {
     dispatch(resetSea());
@@ -97,6 +101,7 @@ const Game: React.FC = () => {
         <label className="Game-Speed">
           <div>Speed: {speed} (ms)</div>
           <input
+            className="Game-SpeedRange"
             type="range"
             min="0"
             max="1000"
