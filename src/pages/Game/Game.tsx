@@ -17,6 +17,7 @@ const { useState, useEffect, useReducer, useCallback, useMemo } = React;
 const Game: React.FC = () => {
   const [state, dispatch] = useReducer(seaReducer, getInitialSeaState());
   const [winner, setWinner] = useState<string | null>(null);
+  const [speed, setSpeed] = useState(500); // ms
 
   useEffect(() => {
     if (state.playerKills === 10) {
@@ -36,12 +37,12 @@ const Game: React.FC = () => {
     if (winner) return;
     if (state.isPlayerTurn) return;
 
-    const timeoutID = setTimeout(aiMove, 500);
+    const timeoutID = setTimeout(aiMove, speed);
 
     return () => {
       clearTimeout(timeoutID);
     };
-  }, [winner, state]);
+  }, [winner, state, speed]);
 
   // AI play player role
   useEffect(() => {
@@ -52,12 +53,12 @@ const Game: React.FC = () => {
       dispatch(
         fireToCoordinates(AIShot(state.enemySea, state.enemyShipInProgress)),
       );
-    }, 500);
+    }, speed);
 
     return () => {
       clearTimeout(timeoutID);
     };
-  }, [winner, state]);
+  }, [winner, state, speed]);
 
   const playerMove = useCallback(
     (coordinates: ICoordinates) => {
@@ -82,11 +83,28 @@ const Game: React.FC = () => {
     setWinner(null);
   }, []);
 
+  const onSpeedChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSpeed(Number(e.target.value));
+    },
+    [setSpeed],
+  );
+
   return (
     <div className="Game">
       <div className="Game-Control">
-        <h1 className="Game-Status">{gameStatus}</h1>
         <button onClick={() => startNewGame()}>New game</button>
+        <label className="Game-Speed">
+          <div>Speed: {speed} (ms)</div>
+          <input
+            type="range"
+            min="0"
+            max="1000"
+            value={speed}
+            onChange={onSpeedChange}
+          />
+        </label>
+        <h1 className="Game-Status">{gameStatus}</h1>
       </div>
       <div className="Game-Sea">
         <SeaChart sea={state.playerSea} />
