@@ -5,8 +5,7 @@ import deepCopyOfObject from 'utils/deepCopyOfObject';
 import getShipCoordinates from 'utils/getShipCoordinates';
 import isShipKilled from 'utils/isShipKilled';
 import highlightKilledShip from 'utils/highlightKilledShip';
-
-const getDefaultShipsToPlace = () => [1, 1, 1, 1, 2, 2, 2, 3, 3, 4];
+import getDefaultShipsToPlace from 'utils/getDefaultShipsToPlace';
 
 export const getInitialSeaState = (): ISeaState => {
   return {
