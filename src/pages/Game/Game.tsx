@@ -1,5 +1,4 @@
 import * as React from 'react';
-import SeaChart from 'components/SeaChart';
 import seaReducer from 'reducers/sea/seaReducer';
 import { getInitialSeaState } from 'reducers/sea/helpers';
 import {
@@ -7,51 +6,47 @@ import {
   AIFireToCoordinates,
   resetSea,
 } from 'actions/sea/seaActions';
-import AIShot from 'utils/AI/AIShot';
-import { ICoordinates } from 'types/seaTypes';
+import { AutoShot } from 'types/seaTypes';
+import { ISeaActions } from 'actions/sea/types';
+import { ISeaState } from 'reducers/sea/types';
 
 import './Game.scss';
 
 const { useState, useEffect, useReducer, useCallback, useMemo } = React;
 
-const Game: React.FC = () => {
+const Game: React.FC<{
+  playerName: string;
+  enemyName: string;
+  playerMove?: AutoShot;
+  enemyMove?: AutoShot;
+  renderSea: (
+    state: ISeaState,
+    dispatch: React.Dispatch<ISeaActions>,
+  ) => JSX.Element;
+}> = ({ playerName, enemyName, playerMove, enemyMove, renderSea }) => {
   const [state, dispatch] = useReducer(seaReducer, getInitialSeaState());
   const [winner, setWinner] = useState<string | null>(null);
   const [speed, setSpeed] = useState(500); // ms
 
   useEffect(() => {
     if (state.playerKills === 10) {
-      setWinner('Player');
+      setWinner(playerName);
     } else if (state.enemyKills === 10) {
-      setWinner('AI');
+      setWinner(enemyName);
     }
   }, [state]);
 
-  const aiMove = useCallback(() => {
-    dispatch(
-      AIFireToCoordinates(AIShot(state.playerSea, state.playerShipInProgress)),
-    );
-  }, [state]);
-
+  // Auto enemy move
   useEffect(() => {
+    if (!enemyMove) return;
     if (winner) return;
     if (state.isPlayerTurn) return;
 
-    const timeoutID = setTimeout(aiMove, speed);
-
-    return () => {
-      clearTimeout(timeoutID);
-    };
-  }, [winner, state, speed]);
-
-  // AI play player role
-  useEffect(() => {
-    if (winner) return;
-    if (!state.isPlayerTurn) return;
-
     const timeoutID = setTimeout(() => {
       dispatch(
-        fireToCoordinates(AIShot(state.enemySea, state.enemyShipInProgress)),
+        AIFireToCoordinates(
+          enemyMove(state.playerSea, state.playerShipInProgress),
+        ),
       );
     }, speed);
 
@@ -60,15 +55,25 @@ const Game: React.FC = () => {
     };
   }, [winner, state, speed]);
 
-  const playerMove = useCallback(
-    (coordinates: ICoordinates) => {
-      if (winner) return;
-      if (!state.isPlayerTurn) return;
+  // Auto player move
+  useEffect(() => {
+    if (!playerMove) return;
 
-      dispatch(fireToCoordinates(coordinates));
-    },
-    [winner, state],
-  );
+    if (winner) return;
+    if (!state.isPlayerTurn) return;
+
+    const timeoutID = setTimeout(() => {
+      dispatch(
+        fireToCoordinates(
+          playerMove(state.enemySea, state.enemyShipInProgress),
+        ),
+      );
+    }, speed);
+
+    return () => {
+      clearTimeout(timeoutID);
+    };
+  }, [winner, state, speed]);
 
   const gameStatus = useMemo(() => {
     if (winner) {
@@ -79,7 +84,7 @@ const Game: React.FC = () => {
       return '...';
     }
 
-    return `${state.isPlayerTurn ? 'Player' : 'AI'} turn`;
+    return `${state.isPlayerTurn ? playerName : enemyName} turn`;
   }, [winner, state, speed]);
 
   const startNewGame = useCallback(() => {
@@ -99,7 +104,7 @@ const Game: React.FC = () => {
       <div className="Game-Control">
         <button onClick={() => startNewGame()}>New game</button>
         <label className="Game-Speed">
-          <div>Speed: {speed} (ms)</div>
+          <div>AI Speed: {speed} (ms)</div>
           <input
             className="Game-SpeedRange"
             type="range"
@@ -111,10 +116,7 @@ const Game: React.FC = () => {
         </label>
         <h1 className="Game-Status">{gameStatus}</h1>
       </div>
-      <div className="Game-Sea">
-        <SeaChart sea={state.playerSea} />
-        <SeaChart isEnemy={true} sea={state.enemySea} fire={playerMove} />
-      </div>
+      <div className="Game-Sea">{renderSea(state, dispatch)}</div>
     </div>
   );
 };

@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import rootReducer from 'reducers/rootReducer';
-import Game from 'pages/Game';
+import Main from 'pages/Main';
 
 import 'normalize.css';
 
@@ -11,7 +11,7 @@ const store = createStore(rootReducer);
 
 ReactDOM.render(
   <Provider store={store}>
-    <Game />
+    <Main />
   </Provider>,
   document.getElementById('root'),
 );
