@@ -4,7 +4,7 @@ import { ISeaBlock } from 'types/seaTypes';
 
 import './SeaBlock.scss';
 
-const { useMemo } = React;
+const { useMemo, useCallback } = React;
 
 const SeaBlock: React.FC<{
   block: ISeaBlock;
@@ -22,7 +22,11 @@ const SeaBlock: React.FC<{
     [className, block, isEnemy],
   );
 
-  return <div className={seaBlockClassname} onClick={() => fire()} />;
+  const handleFire = useCallback(() => {
+    if (!block.hasFire) fire();
+  }, [block, fire]);
+
+  return <div className={seaBlockClassname} onClick={handleFire} />;
 };
 
 export default SeaBlock;
