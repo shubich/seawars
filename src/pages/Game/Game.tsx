@@ -19,11 +19,12 @@ const Game: React.FC<{
   enemyName: string;
   playerMove?: AutoShot;
   enemyMove?: AutoShot;
+  onExit: () => void;
   renderSea: (
     state: ISeaState,
     dispatch: React.Dispatch<ISeaActions>,
   ) => JSX.Element;
-}> = ({ playerName, enemyName, playerMove, enemyMove, renderSea }) => {
+}> = ({ playerName, enemyName, playerMove, enemyMove, onExit, renderSea }) => {
   const [state, dispatch] = useReducer(seaReducer, getInitialSeaState());
   const [winner, setWinner] = useState<string | null>(null);
   const [speed, setSpeed] = useState(500); // ms
@@ -115,6 +116,7 @@ const Game: React.FC<{
           />
         </label>
         <h1 className="Game-Status">{gameStatus}</h1>
+        <button onClick={() => onExit()}>Exit</button>
       </div>
       <div className="Game-Sea">{renderSea(state, dispatch)}</div>
     </div>
