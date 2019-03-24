@@ -10,6 +10,7 @@ import {
 import { AutoShot } from 'types/seaTypes';
 import { ISeaActions } from 'actions/sea/types';
 import { ISeaState } from 'reducers/sea/types';
+import { getAIDelay } from 'utils/settings/AIDelay';
 
 import './Game.scss';
 
@@ -27,7 +28,7 @@ const Game: React.FC<{
 }> = ({ playerName, enemyName, playerMove, enemyMove, renderSea }) => {
   const [state, dispatch] = useReducer(seaReducer, getInitialSeaState());
   const [winner, setWinner] = useState<string | null>(null);
-  const [AIDelay, setAIDelay] = useState(500); // ms
+  const [AIDelay, setAIDelay] = useState(getAIDelay());
 
   useEffect(() => {
     if (state.playerKills === 10) {
@@ -49,7 +50,7 @@ const Game: React.FC<{
           enemyMove(state.playerSea, state.playerShipInProgress),
         ),
       );
-    }, AIDelay);
+    }, Number(AIDelay));
 
     return () => {
       clearTimeout(timeoutID);
@@ -69,7 +70,7 @@ const Game: React.FC<{
           playerMove(state.enemySea, state.enemyShipInProgress),
         ),
       );
-    }, AIDelay);
+    }, Number(AIDelay));
 
     return () => {
       clearTimeout(timeoutID);
@@ -81,7 +82,7 @@ const Game: React.FC<{
       return `${winner} won!`;
     }
 
-    if (AIDelay < 100) {
+    if (Number(AIDelay) < 100) {
       return '...';
     }
 
@@ -95,7 +96,7 @@ const Game: React.FC<{
 
   const onSpeedChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setAIDelay(Number(e.target.value));
+      setAIDelay(e.target.value);
     },
     [setAIDelay],
   );
