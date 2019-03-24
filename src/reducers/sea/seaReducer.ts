@@ -11,7 +11,7 @@ export default function seaReducer(
   switch (action.type) {
     case ActionTypesSea.PLACE_SHIP:
       return state;
-    case ActionTypesSea.FIRE_TO_COORDINATES: {
+    case ActionTypesSea.PLAYER_FIRE_TO_COORDINATES: {
       const { sea, shipInProgress, hit, killedShip } = getStateAfterShot(
         state.enemySea,
         action.coordinates,
@@ -26,7 +26,7 @@ export default function seaReducer(
         playerKills: killedShip ? state.playerKills + 1 : state.playerKills,
       };
     }
-    case ActionTypesSea.AI_FIRE_TO_COORDINATES: {
+    case ActionTypesSea.ENEMY_FIRE_TO_COORDINATES: {
       const { sea, shipInProgress, hit, killedShip } = getStateAfterShot(
         state.playerSea,
         action.coordinates,

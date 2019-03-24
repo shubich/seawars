@@ -4,7 +4,7 @@ import Game from 'pages/Game';
 import { ICoordinates } from 'types/seaTypes';
 import { ISeaActions } from 'actions/sea/types';
 import { ISeaState } from 'reducers/sea/types';
-import { fireToCoordinates } from 'actions/sea/seaActions';
+import { playerFireToCoordinates } from 'actions/sea/seaActions';
 import AIShot from 'utils/AI/AIShot';
 import { History } from 'history';
 
@@ -16,7 +16,7 @@ const PlayerVsAI: React.FC<{ history: History }> = ({ history }) => {
       const playerMove = (coordinates: ICoordinates) => {
         if (!state.isPlayerTurn) return;
         if (state.playerKills >= 10) return;
-        dispatch(fireToCoordinates(coordinates));
+        dispatch(playerFireToCoordinates(coordinates));
       };
 
       return (

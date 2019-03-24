@@ -2,9 +2,9 @@ import { ICoordinates } from 'types/seaTypes';
 import {
   ActionTypesSea,
   IPlaceShip,
-  IFireToCoordinates,
+  IPlayerFireToCoordinates,
+  IEnemyFireToCoordinates,
   IResetSea,
-  IAIFireToCoordinates,
 } from './types';
 
 export const placeShip = (
@@ -16,18 +16,18 @@ export const placeShip = (
   type: ActionTypesSea.PLACE_SHIP,
 });
 
-export const fireToCoordinates = (
+export const playerFireToCoordinates = (
   coordinates: ICoordinates,
-): IFireToCoordinates => ({
+): IPlayerFireToCoordinates => ({
   coordinates,
-  type: ActionTypesSea.FIRE_TO_COORDINATES,
+  type: ActionTypesSea.PLAYER_FIRE_TO_COORDINATES,
 });
 
-export const AIFireToCoordinates = (
+export const enemyFireToCoordinates = (
   coordinates: ICoordinates,
-): IAIFireToCoordinates => ({
+): IEnemyFireToCoordinates => ({
   coordinates,
-  type: ActionTypesSea.AI_FIRE_TO_COORDINATES,
+  type: ActionTypesSea.ENEMY_FIRE_TO_COORDINATES,
 });
 
 export const resetSea = (): IResetSea => ({

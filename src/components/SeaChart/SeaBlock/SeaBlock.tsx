@@ -12,15 +12,14 @@ const SeaBlock: React.FC<{
   className?: string;
   fire: () => void;
 }> = ({ block, fire, className, isEnemy }) => {
-  const seaBlockClassname = useMemo(
-    () =>
-      classNames('SeaBlock', className, {
-        'SeaBlock-Ship': block.hasShip,
-        'SeaBlock-Ship_enemy': isEnemy,
-        'SeaBlock-Fire': block.hasFire,
-      }),
-    [className, block, isEnemy],
-  );
+  const seaBlockClassname = useMemo(() => {
+    const { hasFire, hasShip } = block;
+    return classNames('SeaBlock', className, {
+      SeaBlock_missFire: !hasShip && hasFire,
+      'SeaBlock-Ship': !isEnemy && hasShip,
+      'SeaBlock-Ship_killed': hasShip && hasFire,
+    });
+  }, [className, block, isEnemy]);
 
   const handleFire = useCallback(() => {
     if (!block.hasFire) fire();

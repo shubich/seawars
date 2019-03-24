@@ -2,8 +2,8 @@ import * as React from 'react';
 import seaReducer from 'reducers/sea/seaReducer';
 import { getInitialSeaState } from 'reducers/sea/helpers';
 import {
-  fireToCoordinates,
-  AIFireToCoordinates,
+  playerFireToCoordinates,
+  enemyFireToCoordinates,
   resetSea,
 } from 'actions/sea/seaActions';
 import { AutoShot } from 'types/seaTypes';
@@ -27,7 +27,7 @@ const Game: React.FC<{
 }> = ({ playerName, enemyName, playerMove, enemyMove, onExit, renderSea }) => {
   const [state, dispatch] = useReducer(seaReducer, getInitialSeaState());
   const [winner, setWinner] = useState<string | null>(null);
-  const [speed, setSpeed] = useState(500); // ms
+  const [AIDelay, setAIDelay] = useState(500); // ms
 
   useEffect(() => {
     if (state.playerKills === 10) {
@@ -45,16 +45,16 @@ const Game: React.FC<{
 
     const timeoutID = setTimeout(() => {
       dispatch(
-        AIFireToCoordinates(
+        enemyFireToCoordinates(
           enemyMove(state.playerSea, state.playerShipInProgress),
         ),
       );
-    }, speed);
+    }, AIDelay);
 
     return () => {
       clearTimeout(timeoutID);
     };
-  }, [winner, state, speed]);
+  }, [winner, state, AIDelay]);
 
   // Auto player move
   useEffect(() => {
@@ -65,28 +65,28 @@ const Game: React.FC<{
 
     const timeoutID = setTimeout(() => {
       dispatch(
-        fireToCoordinates(
+        playerFireToCoordinates(
           playerMove(state.enemySea, state.enemyShipInProgress),
         ),
       );
-    }, speed);
+    }, AIDelay);
 
     return () => {
       clearTimeout(timeoutID);
     };
-  }, [winner, state, speed]);
+  }, [winner, state, AIDelay]);
 
   const gameStatus = useMemo(() => {
     if (winner) {
       return `${winner} won!`;
     }
 
-    if (speed < 100) {
+    if (AIDelay < 100) {
       return '...';
     }
 
     return `${state.isPlayerTurn ? playerName : enemyName} turn`;
-  }, [winner, state, speed]);
+  }, [winner, state, AIDelay]);
 
   const startNewGame = useCallback(() => {
     dispatch(resetSea());
@@ -95,9 +95,9 @@ const Game: React.FC<{
 
   const onSpeedChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setSpeed(Number(e.target.value));
+      setAIDelay(Number(e.target.value));
     },
-    [setSpeed],
+    [setAIDelay],
   );
 
   return (
@@ -105,13 +105,13 @@ const Game: React.FC<{
       <div className="Game-Control">
         <button onClick={() => startNewGame()}>New game</button>
         <label className="Game-Speed">
-          <div>AI Speed: {speed} (ms)</div>
+          <div>AI delay: {AIDelay} (ms)</div>
           <input
             className="Game-SpeedRange"
             type="range"
             min="0"
             max="1000"
-            value={speed}
+            value={AIDelay}
             onChange={onSpeedChange}
           />
         </label>
