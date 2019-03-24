@@ -3,12 +3,14 @@ import './Settings.scss';
 import { Link } from 'react-router-dom';
 import { getPlayerName, setPlayerName } from 'utils/settings/playerName';
 import { getAIDelay, setAIDelay } from 'utils/settings/AIDelay';
+import { getSound, setSound, SoundValues } from 'utils/settings/sound';
 
 const { useState, useCallback } = React;
 
 const Settings: React.FC<{}> = ({}) => {
   const [name, setName] = useState(getPlayerName());
   const [delay, setDelay] = useState(getAIDelay());
+  const [soundCheckmark, setSoundCheckmark] = useState(getSound());
 
   const handleNameChange = useCallback(
     ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,6 +28,15 @@ const Settings: React.FC<{}> = ({}) => {
     [setName],
   );
 
+  const handleSoundChange = useCallback(
+    ({ target: { checked } }: React.ChangeEvent<HTMLInputElement>) => {
+      const result = checked ? SoundValues.ON : SoundValues.OFF;
+      setSoundCheckmark(result);
+      setSound(result);
+    },
+    [setSoundCheckmark],
+  );
+
   return (
     <div className="Settings">
       <label className="Settings-Label Settings-Name">
@@ -41,6 +52,14 @@ const Settings: React.FC<{}> = ({}) => {
           max="1000"
           value={delay}
           onChange={handleDelayChange}
+        />
+      </label>
+      <label className="Settings-Label Settings-Sound">
+        <span>Sound: </span>
+        <input
+          type="checkbox"
+          checked={soundCheckmark === SoundValues.ON}
+          onChange={handleSoundChange}
         />
       </label>
       <Link to="/">

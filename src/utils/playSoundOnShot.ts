@@ -15,7 +15,6 @@ const playSoundOnShot = (
     } else if (lose) {
       playSound(SOUNDS.lose);
     }
-
   } else if (wounded) {
     playSound(SOUNDS.wounded);
   } else {

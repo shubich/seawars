@@ -2,6 +2,7 @@ import { ActionTypesSea, ISeaActions } from 'actions/sea/types';
 import { getInitialSeaState, getStateAfterShot } from './helpers';
 import { ISeaState } from './types';
 import playSoundOnShot from 'utils/playSoundOnShot';
+import { getSound, SoundValues } from 'utils/settings/sound';
 
 const initialState = getInitialSeaState();
 
@@ -23,7 +24,9 @@ export default function seaReducer(
         ? state.playerKills + 1
         : state.playerKills;
 
-      playSoundOnShot(wounded, Boolean(killedShip), playerKills === 10);
+      if (getSound() === SoundValues.ON) {
+        playSoundOnShot(wounded, Boolean(killedShip), playerKills === 10);
+      }
 
       return {
         ...state,
@@ -42,7 +45,9 @@ export default function seaReducer(
 
       const enemyKills = killedShip ? state.enemyKills + 1 : state.enemyKills;
 
-      playSoundOnShot(wounded, Boolean(killedShip), false, enemyKills === 10);
+      if (getSound() === SoundValues.ON) {
+        playSoundOnShot(wounded, Boolean(killedShip), false, enemyKills === 10);
+      }
 
       return {
         ...state,
