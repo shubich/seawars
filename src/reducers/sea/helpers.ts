@@ -29,7 +29,7 @@ export const getStateAfterShot = (
   sea: ISeaBlock[][];
   shipInProgress: ICoordinates | null;
   killedShip: ICoordinates[] | null;
-  hit: boolean;
+  wounded: boolean;
 } => {
   const { x, y } = coordinates;
 
@@ -40,12 +40,12 @@ export const getStateAfterShot = (
   let newSea = deepCopyOfObject(sea);
   let newShipInProgress = deepCopyOfObject(shipInProgress);
   let killedShip: ICoordinates[] | null = null;
-  let hit = false;
+  let wounded = false;
 
   newSea[y][x].hasFire = true;
 
   if (newSea[y][x].hasShip) {
-    hit = true;
+    wounded = true;
     const shipCoordinates = getShipCoordinates(newSea, coordinates);
 
     if (isShipKilled(newSea, shipCoordinates)) {
@@ -58,7 +58,7 @@ export const getStateAfterShot = (
   }
 
   return {
-    hit,
+    wounded,
     killedShip,
     sea: newSea,
     shipInProgress: newShipInProgress,
