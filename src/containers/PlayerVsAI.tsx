@@ -6,11 +6,10 @@ import { ISeaActions } from 'actions/sea/types';
 import { ISeaState } from 'reducers/sea/types';
 import { playerFireToCoordinates } from 'actions/sea/seaActions';
 import AIShot from 'utils/AI/AIShot';
-import { History } from 'history';
 
 const { useCallback } = React;
 
-const PlayerVsAI: React.FC<{ history: History }> = ({ history }) => {
+const PlayerVsAI: React.FC = () => {
   const renderSea = useCallback(
     (state: ISeaState, dispatch: React.Dispatch<ISeaActions>) => {
       const playerMove = (coordinates: ICoordinates) => {
@@ -29,17 +28,12 @@ const PlayerVsAI: React.FC<{ history: History }> = ({ history }) => {
     [],
   );
 
-  const handleExit = useCallback(() => {
-    history.push('/');
-  }, [history]);
-
   return (
     <Game
       playerName="Andrei"
       enemyName="PC"
       renderSea={renderSea}
       enemyMove={AIShot}
-      onExit={handleExit}
     />
   );
 };

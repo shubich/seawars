@@ -3,11 +3,10 @@ import SeaChart from 'components/SeaChart';
 import Game from 'pages/Game';
 import { ISeaState } from 'reducers/sea/types';
 import AIShot from 'utils/AI/AIShot';
-import { History } from 'history';
 
 const { useCallback } = React;
 
-const AIVsAI: React.FC<{ history: History }> = ({ history }) => {
+const AIVsAI: React.FC = () => {
   const renderSea = useCallback((state: ISeaState) => {
     return (
       <React.Fragment>
@@ -17,10 +16,6 @@ const AIVsAI: React.FC<{ history: History }> = ({ history }) => {
     );
   }, []);
 
-  const handleExit = useCallback(() => {
-    history.push('/');
-  }, [history]);
-
   return (
     <Game
       playerName="PC 1"
@@ -28,7 +23,6 @@ const AIVsAI: React.FC<{ history: History }> = ({ history }) => {
       renderSea={renderSea}
       playerMove={AIShot}
       enemyMove={AIShot}
-      onExit={handleExit}
     />
   );
 };

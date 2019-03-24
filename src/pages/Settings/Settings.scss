@@ -1,8 +1,11 @@
 @import '~styles/verticalCentering';
 
-.Main {
+.Settings {
   @extend %verticalCentering;
 
-  text-align: center;
   max-width: 200px;
+}
+
+.Settings-Label {
+  padding: 10px 0;
 }
