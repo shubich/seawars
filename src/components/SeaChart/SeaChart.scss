@@ -8,3 +8,9 @@
 .SeaChart-Row {
   display: flex;
 }
+
+@media (max-width: 1050px) {
+  .SeaChart_inactive {
+    display: none;
+  }
+}

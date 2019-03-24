@@ -10,8 +10,8 @@ const AIVsAI: React.FC = () => {
   const renderSea = useCallback((state: ISeaState) => {
     return (
       <React.Fragment>
-        <SeaChart sea={state.playerSea} />
-        <SeaChart sea={state.enemySea} />
+        <SeaChart sea={state.playerSea} isActive={!state.isPlayerTurn} />
+        <SeaChart sea={state.enemySea} isActive={state.isPlayerTurn} />
       </React.Fragment>
     );
   }, []);

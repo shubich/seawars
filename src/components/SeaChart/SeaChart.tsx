@@ -1,14 +1,19 @@
 import * as React from 'react';
+import * as classNames from 'classnames';
 import { ISeaBlock, ICoordinates } from 'types/seaTypes';
 import SeaBlock from './SeaBlock';
 
 import './SeaChart.scss';
 
+const { useMemo } = React;
+
 const SeaChart: React.FC<{
   isEnemy?: boolean;
   sea: ISeaBlock[][];
+  className?: string;
+  isActive: boolean;
   fire?: (coordinates: ICoordinates) => void;
-}> = ({ sea, fire, isEnemy = false }) => {
+}> = ({ sea, fire, className, isActive, isEnemy = false }) => {
   const renderRow = (row: ISeaBlock[], rowIndex: number) => {
     const Row = row.map((block, blockIndex) => {
       const handleFire = () => {
@@ -36,7 +41,14 @@ const SeaChart: React.FC<{
   };
 
   const Sea = sea.map(renderRow);
-  return <div className="SeaChart">{Sea}</div>;
+
+  const seaClassname = useMemo(() => {
+    return classNames('SeaChart', className, {
+      SeaChart_inactive: !isActive,
+    });
+  }, [className, isActive]);
+
+  return <div className={seaClassname}>{Sea}</div>;
 };
 
 export default SeaChart;

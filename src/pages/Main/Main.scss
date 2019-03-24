@@ -4,5 +4,14 @@
   @extend %verticalCentering;
 
   text-align: center;
-  max-width: 200px;
+  max-width: 225px;
+}
+
+.Main-Menu {
+  text-align: left;
+}
+
+.Main-MenuItem,
+.Main-SubMenuItem {
+  padding: 5px;
 }

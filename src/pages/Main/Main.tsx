@@ -7,19 +7,25 @@ const Main: React.FC<{}> = () => {
     <div className="Main">
       <h1>Sea wars</h1>
 
-      <p>New game</p>
-      <ul>
-        <li>
-          <Link to="/game/player_vs_ai">Player VS AI</Link>
+      <ul className="Main-Menu">
+        <li className="Main-MenuItem">
+          <span>New game</span>
+          <ul>
+            <li className="Main-SubMenuItem">
+              <Link to="/game/player_vs_ai">Player VS AI</Link>
+            </li>
+            <li className="Main-SubMenuItem">
+              <Link to="/game/ai_vs_ai">AI VS AI</Link>
+            </li>
+            <li className="Main-SubMenuItem">
+              Player VS Player (not available)
+            </li>
+          </ul>
         </li>
-        <li>
-          <Link to="/game/ai_vs_ai">AI VS AI</Link>
+        <li className="Main-MenuItem">
+          <Link to="/settings">Settings</Link>
         </li>
-        <li>Player VS Player (not available)</li>
       </ul>
-      <p>
-        <Link to="/settings">Settings</Link>
-      </p>
     </div>
   );
 };

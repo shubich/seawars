@@ -23,8 +23,13 @@ const PlayerVsAI: React.FC = () => {
 
       return (
         <React.Fragment>
-          <SeaChart sea={state.playerSea} />
-          <SeaChart isEnemy={true} sea={state.enemySea} fire={playerMove} />
+          <SeaChart sea={state.playerSea} isActive={!state.isPlayerTurn} />
+          <SeaChart
+            isEnemy={true}
+            sea={state.enemySea}
+            fire={playerMove}
+            isActive={state.isPlayerTurn}
+          />
         </React.Fragment>
       );
     },
