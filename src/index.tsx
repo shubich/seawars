@@ -8,6 +8,7 @@ import Main from 'pages/Main';
 import Settings from 'pages/Settings';
 import PlayerVsAI from 'containers/PlayerVsAI';
 import AIVsAI from 'containers/AIVsAI';
+import { BASE_URL } from 'constants/url';
 
 import 'normalize.css';
 import './index.scss';
@@ -16,7 +17,7 @@ const store = createStore(rootReducer);
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
+    <Router basename={BASE_URL}>
       <Switch>
         <Route exact={true} path="/" component={Main} />
         <Route path="/settings" component={Settings} />
