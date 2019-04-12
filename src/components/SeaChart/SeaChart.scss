@@ -1,16 +1,20 @@
+@import '~styles/screens';
+
 .SeaChart {
   display: flex;
   flex-wrap: wrap;
   width: 50px * 10;
   border: 1px solid black;
+
+  @media only screen and (max-width: 1050px) {
+    width: 4.5vw * 10;
+  }
+
+  @media #{$phone} {
+    width: 9vw * 10;
+  }
 }
 
 .SeaChart-Row {
   display: flex;
-}
-
-@media (max-width: 1050px) {
-  .SeaChart_inactive {
-    display: none;
-  }
 }

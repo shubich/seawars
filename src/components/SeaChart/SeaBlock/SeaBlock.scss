@@ -1,9 +1,21 @@
+@import '~styles/screens';
+
 .SeaBlock {
   box-sizing: border-box;
   width: 50px;
   height: 50px;
   border: 1px solid black;
   background: deepskyblue;
+
+  @media only screen and (max-width: 1050px) {
+    width: 4.5vw;
+    height: 4.5vw;
+  }
+
+  @media #{$phone} {
+    width: 9vw;
+    height: 9vw;
+  }
 }
 
 .SeaBlock_missFire {
@@ -18,5 +30,3 @@
 .SeaBlock-Ship_killed {
   background: red;
 }
-
-

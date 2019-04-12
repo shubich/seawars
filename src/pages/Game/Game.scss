@@ -1,16 +1,31 @@
+@import '~styles/screens';
+@import '~styles/ellipsis';
+
 .Game {
   padding: 15px;
 }
 
 .Game-Control {
-  margin-bottom: 15px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 50px;
+
+  @media #{$phone} {
+    margin-bottom: 15px;
+  }
 }
 
 .Game-Status {
+  @extend %ellipsis;
   width: 200px;
+  margin: 0;
+}
+
+.Game-Speed {
+  @media #{$phone} {
+    display: none;
+  }
 }
 
 .Game-SpeedRange {
@@ -22,11 +37,14 @@
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-}
 
-@media (max-width: 1050px) {
-  .Game-Sea {
+  @media #{$tablet}, #{$desktop} {
+    height: calc(100vh-125px);
+    align-items: flex-end;
+  }
+
+  @media #{$phone} {
     flex-direction: column;
-    height: 1020px;
+    height: 9vw*10*2+9vw;
   }
 }
