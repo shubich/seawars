@@ -1,7 +1,10 @@
+const webpack = require('webpack');
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+
+const PUBLIC_PATH = process.env.PUBLIC_PATH;
 
 module.exports = {
   entry: {
@@ -10,7 +13,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].bundle.[hash].js',
-    publicPath: './',
+    publicPath: PUBLIC_PATH || '/',
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
@@ -37,6 +40,11 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        PUBLIC_PATH: JSON.stringify(PUBLIC_PATH || '/'),
+      },
+    }),
     new CleanWebpackPlugin(['dist']),
     new MiniCssExtractPlugin({
       filename: '[name].[hash].css',

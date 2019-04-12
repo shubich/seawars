@@ -1,2 +1,1 @@
-export const BASE_URL =
-  location.hostname === 'shubich.github.io' ? '/seawars/' : '/';
+export const BASE_URL = process.env.PUBLIC_PATH;

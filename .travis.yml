@@ -1,6 +1,9 @@
 language: node_js
 node_js:
-  - "node"
+  - "10"
+
+env:
+  - PUBLIC_PATH=/seawars/
 
 cache:
   directories:
