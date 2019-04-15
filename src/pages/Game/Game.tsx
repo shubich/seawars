@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import seaReducer from 'reducers/sea/seaReducer';
-import { getInitialSeaState } from 'reducers/sea/helpers';
+import getInitialSeaState from 'reducers/sea/getInitialSeaState';
 import {
   playerFireToCoordinates,
   enemyFireToCoordinates,

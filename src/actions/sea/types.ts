@@ -1,17 +1,9 @@
 import { ICoordinates } from 'types/seaTypes';
 
 export enum ActionTypesSea {
-  PLACE_SHIP = 'PLACE_SHIP',
   PLAYER_FIRE_TO_COORDINATES = 'PLAYER_FIRE_TO_COORDINATES',
   ENEMY_FIRE_TO_COORDINATES = 'ENEMY_FIRE_TO_COORDINATES',
   RESET_SEA = 'RESET_SEA',
-}
-
-// @TODO
-export interface IPlaceShip {
-  coordinates: ICoordinates;
-  shipSize: number;
-  type: ActionTypesSea.PLACE_SHIP;
 }
 
 export interface IPlayerFireToCoordinates {
@@ -29,7 +21,6 @@ export interface IResetSea {
 }
 
 export type ISeaActions =
-  | IPlaceShip
   | IPlayerFireToCoordinates
   | IEnemyFireToCoordinates
   | IResetSea;

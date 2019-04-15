@@ -1,27 +1,10 @@
-import { ISeaState } from './types';
 import { ISeaBlock, ICoordinates } from 'types/seaTypes';
-import getSeaWithRandomShips from 'utils/getSeaWithRandomShips';
 import deepCopyOfObject from 'utils/deepCopyOfObject';
 import getShipCoordinates from 'utils/getShipCoordinates';
 import isShipKilled from 'utils/isShipKilled';
 import highlightKilledShip from 'utils/highlightKilledShip';
-import getDefaultShipsToPlace from 'utils/getDefaultShipsToPlace';
 
-export const getInitialSeaState = (): ISeaState => {
-  return {
-    playerSea: getSeaWithRandomShips(),
-    enemySea: getSeaWithRandomShips(),
-    playerShipsToPlace: getDefaultShipsToPlace(),
-    enemyShipsToPlace: getDefaultShipsToPlace(),
-    playerShipInProgress: null,
-    enemyShipInProgress: null,
-    playerKills: 0,
-    enemyKills: 0,
-    isPlayerTurn: true,
-  };
-};
-
-export const getStateAfterShot = (
+const getStateAfterShot = (
   sea: ISeaBlock[][],
   coordinates: ICoordinates,
   shipInProgress: ICoordinates | null,
@@ -64,3 +47,5 @@ export const getStateAfterShot = (
     shipInProgress: newShipInProgress,
   };
 };
+
+export default getStateAfterShot;

@@ -1,6 +1,7 @@
 import { ActionTypesSea, ISeaActions } from 'actions/sea/types';
-import { getInitialSeaState, getStateAfterShot } from './helpers';
-import { ISeaState } from './types';
+import getInitialSeaState from 'reducers/sea/getInitialSeaState';
+import getStateAfterShot from 'reducers/sea/getStateAfterShot';
+import { ISeaState } from 'reducers/sea/types';
 import playSoundOnShot from 'utils/playSoundOnShot';
 import { getSound, SoundValues } from 'utils/settings/sound';
 
@@ -11,8 +12,6 @@ export default function seaReducer(
   action: ISeaActions,
 ): ISeaState {
   switch (action.type) {
-    case ActionTypesSea.PLACE_SHIP:
-      return state;
     case ActionTypesSea.PLAYER_FIRE_TO_COORDINATES: {
       const { sea, shipInProgress, wounded, killedShip } = getStateAfterShot(
         state.enemySea,

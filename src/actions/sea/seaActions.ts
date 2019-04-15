@@ -1,20 +1,10 @@
 import { ICoordinates } from 'types/seaTypes';
 import {
   ActionTypesSea,
-  IPlaceShip,
   IPlayerFireToCoordinates,
   IEnemyFireToCoordinates,
   IResetSea,
 } from './types';
-
-export const placeShip = (
-  shipSize: number,
-  coordinates: ICoordinates,
-): IPlaceShip => ({
-  shipSize,
-  coordinates,
-  type: ActionTypesSea.PLACE_SHIP,
-});
 
 export const playerFireToCoordinates = (
   coordinates: ICoordinates,
