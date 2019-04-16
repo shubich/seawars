@@ -1,18 +1,51 @@
-// you can use this file to add your custom webpack plugins, loaders and anything you like.
-// This is just the basic way to add additional webpack configurations.
-// For more information refer the docs: https://storybook.js.org/configurations/custom-webpack-config
+const webpack = require('webpack');
+const path = require('path');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-// IMPORTANT
-// When you add this file, we won't add the default configurations which is similar
-// to "React Create App". This only has babel loader to load JavaScript.
+const PUBLIC_PATH = process.env.PUBLIC_PATH;
 
 module.exports = {
-  plugins: [
-    // your custom plugins
-  ],
+  entry: {
+    app: '../src/index.tsx'
+  },
+  output: {
+    path: path.resolve(__dirname, '../dist'),
+    filename: '[name].bundle.[hash].js',
+    publicPath: PUBLIC_PATH || '/',
+  },
+  resolve: {
+    extensions: [".ts", ".tsx", ".js", ".jsx"],
+    modules: [path.resolve(__dirname, '../src'), '../node_modules']
+  },
   module: {
     rules: [
-      // add your custom rules.
-    ],
+      {
+        test: /\.(t|j)sx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "awesome-typescript-loader"
+        }
+      },
+      {
+        test: /\.(sa|sc|c)ss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+          'sass-loader',
+        ],
+      },
+    ]
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        PUBLIC_PATH: JSON.stringify(PUBLIC_PATH || '/'),
+      },
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].[hash].css',
+      chunkFilename: '[id].[hash].css',
+    }),
+  ],
 };
