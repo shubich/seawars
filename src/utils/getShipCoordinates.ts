@@ -6,6 +6,8 @@ const getShipCoordinates = (
 ): ICoordinates[] => {
   const { x, y } = coordinates;
 
+  if (!sea[y][x].hasShip) throw new Error('Where is no ship');
+
   const result = [coordinates];
 
   let nextSeaBlock: ISeaBlock | null;

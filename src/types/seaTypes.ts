@@ -1,6 +1,7 @@
 export interface ISeaBlock {
   hasFire: boolean;
   hasShip: boolean;
+  isCollision?: boolean;
 }
 
 export interface ICoordinates {

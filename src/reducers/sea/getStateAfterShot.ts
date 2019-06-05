@@ -2,7 +2,7 @@ import { ISeaBlock, ICoordinates } from 'types/seaTypes';
 import deepCopyOfObject from 'utils/deepCopyOfObject';
 import getShipCoordinates from 'utils/getShipCoordinates';
 import isShipKilled from 'utils/isShipKilled';
-import highlightKilledShip from 'utils/highlightKilledShip';
+import getShipCollisionCoordinates from 'utils/getShipCollisionCoordinates';
 
 const getStateAfterShot = (
   sea: ISeaBlock[][],
@@ -20,7 +20,7 @@ const getStateAfterShot = (
     throw new Error('Fire to the coordinates more than once');
   }
 
-  let newSea = deepCopyOfObject(sea);
+  const newSea = deepCopyOfObject(sea);
   let newShipInProgress = deepCopyOfObject(shipInProgress);
   let killedShip: ICoordinates[] | null = null;
   let wounded = false;
@@ -32,7 +32,9 @@ const getStateAfterShot = (
     const shipCoordinates = getShipCoordinates(newSea, coordinates);
 
     if (isShipKilled(newSea, shipCoordinates)) {
-      newSea = highlightKilledShip(newSea, shipCoordinates);
+      getShipCollisionCoordinates(shipCoordinates).forEach(({ x, y }) => {
+        newSea[y][x].hasFire = true;
+      });
       newShipInProgress = null;
       killedShip = shipCoordinates;
     } else {
