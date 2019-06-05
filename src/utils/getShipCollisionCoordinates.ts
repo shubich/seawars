@@ -1,4 +1,4 @@
-import { ICoordinates, ISeaBlock } from 'types/seaTypes';
+import { ICoordinates } from 'types/seaTypes';
 
 const getShipCollisionCoordinates = (
   shipCoordinates: ICoordinates[],
@@ -66,10 +66,10 @@ const getShipCollisionCoordinates = (
 
     if (isHorizontalShip) {
       if (isTopAble) {
-        result.push({ y: top, x });
+        result.push({ x, y: top });
       }
       if (isBottomAble) {
-        result.push({ y: bottom, x });
+        result.push({ x, y: bottom });
       }
     } else {
       if (isLeftAble) {
