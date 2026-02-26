@@ -1,10 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  purge: {
-    content: ['./src/**/*.{js,jsx,ts,tsx}', './src/index.html'],
-    enabled: process.env.NODE_ENV === 'production',
-  },
-  darkMode: false,
+  content: ['./src/**/*.{js,jsx,ts,tsx}', './src/index.html'],
   theme: {
     extend: {
       fontFamily: {

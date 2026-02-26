@@ -7,7 +7,7 @@ import { getSound, setSound, SoundValues } from 'utils/settings/sound';
 
 const { useState, useCallback } = React;
 
-const Settings: React.FC<{}> = ({}) => {
+const Settings: React.FC = () => {
   const [name, setName] = useState(getPlayerName());
   const [delay, setDelay] = useState(getAIDelay());
   const [soundCheckmark, setSoundCheckmark] = useState(getSound());
@@ -25,7 +25,7 @@ const Settings: React.FC<{}> = ({}) => {
       setDelay(value);
       setAIDelay(value);
     },
-    [setName],
+    [],
   );
 
   const handleSoundChange = useCallback(
@@ -72,10 +72,11 @@ const Settings: React.FC<{}> = ({}) => {
             style={{ accentColor: '#c9a227' }}
           />
         </label>
-        <Link to="/" className="block mt-6">
-          <button className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white font-medium hover:bg-white/15 hover:border-brass/50 transition-all">
-            Back to main menu
-          </button>
+        <Link
+          to="/"
+          className="block mt-6 w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white font-medium hover:bg-white/15 hover:border-brass/50 transition-all text-center"
+        >
+          Back to main menu
         </Link>
       </div>
     </div>

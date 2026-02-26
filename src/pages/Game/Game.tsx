@@ -111,13 +111,12 @@ const Game: React.FC<{
           >
             New game
           </button>
-          <Link to="/">
-            <button
-              className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white/80 font-medium
-                hover:bg-white/10 hover:text-white transition-all duration-200"
-            >
-              Exit
-            </button>
+          <Link
+            to="/"
+            className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white/80 font-medium
+              hover:bg-white/10 hover:text-white transition-all duration-200"
+          >
+            Exit
           </Link>
         </div>
 
@@ -142,8 +141,8 @@ const Game: React.FC<{
         </label>
       </div>
 
-      {/* Game boards - column when narrow, side-by-side only when enough space (lg+); equal-sized cells */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 w-full max-w-full overflow-x-hidden lg:min-h-[calc(100vh-180px)] place-items-center lg:place-items-end">
+      {/* Game boards - centered layout with stable spacing */}
+      <div className="mx-auto grid grid-cols-1 xl:grid-cols-2 gap-8 xl:gap-12 w-full max-w-[920px] place-items-center">
         {renderSea(state, dispatch)}
       </div>
     </div>

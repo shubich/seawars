@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-const Main: React.FC<{}> = () => {
+const Main: React.FC = () => {
   return (
     <div className="min-h-screen bg-navy-gradient bg-navy-950 flex flex-col items-center justify-center px-6 py-12 relative overflow-hidden">
       {/* Subtle grid pattern overlay */}

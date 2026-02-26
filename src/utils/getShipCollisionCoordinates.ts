@@ -4,20 +4,21 @@ const getShipCollisionCoordinates = (
   shipCoordinates: ICoordinates[],
 ): ICoordinates[] => {
   const result: ICoordinates[] = [];
-  const lastShipCoordsIndex = shipCoordinates.length - 1;
+  const normalizedCoordinates = [...shipCoordinates];
+  const lastShipCoordsIndex = normalizedCoordinates.length - 1;
 
   const isHorizontalShip =
-    shipCoordinates[0].y === shipCoordinates[lastShipCoordsIndex].y;
+    normalizedCoordinates[0].y === normalizedCoordinates[lastShipCoordsIndex].y;
   const isNormalDirection = isHorizontalShip
-    ? shipCoordinates[0].x < shipCoordinates[lastShipCoordsIndex].x
-    : shipCoordinates[0].y < shipCoordinates[lastShipCoordsIndex].y;
+    ? normalizedCoordinates[0].x < normalizedCoordinates[lastShipCoordsIndex].x
+    : normalizedCoordinates[0].y < normalizedCoordinates[lastShipCoordsIndex].y;
 
   if (!isNormalDirection) {
-    shipCoordinates.reverse();
+    normalizedCoordinates.reverse();
   }
 
-  const firstBlock = shipCoordinates[0];
-  const lastBlock = shipCoordinates[lastShipCoordsIndex];
+  const firstBlock = normalizedCoordinates[0];
+  const lastBlock = normalizedCoordinates[lastShipCoordsIndex];
 
   const left = firstBlock.x - 1;
   const right = lastBlock.x + 1;
@@ -61,7 +62,7 @@ const getShipCollisionCoordinates = (
     result.push({ y: bottom, x: right });
   }
 
-  shipCoordinates.forEach(coordinates => {
+  normalizedCoordinates.forEach(coordinates => {
     const { y, x } = coordinates;
 
     if (isHorizontalShip) {
@@ -81,7 +82,6 @@ const getShipCollisionCoordinates = (
     }
   });
 
-  console.table(result);
   return result;
 };
 

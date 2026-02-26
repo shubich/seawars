@@ -12,21 +12,30 @@ const SeaBlock: React.FC<{
   className?: string;
   fire: () => void;
 }> = ({ block, fire, className, isEnemy }) => {
+  const isInteractive = isEnemy && !block.hasFire;
   const seaBlockClassname = useMemo(() => {
     const { hasFire, hasShip } = block;
     return classNames('SeaBlock', className, {
       SeaBlock_missFire: !hasShip && hasFire,
       'SeaBlock-Ship': !isEnemy && hasShip,
       'SeaBlock-Ship_killed': hasShip && hasFire,
-      SeaBlock_clickable: isEnemy,
+      SeaBlock_clickable: isInteractive,
     });
-  }, [className, block, isEnemy]);
+  }, [className, block, isEnemy, isInteractive]);
 
   const handleFire = useCallback(() => {
-    if (!block.hasFire) fire();
-  }, [block, fire]);
+    if (isInteractive) fire();
+  }, [isInteractive, fire]);
 
-  return <div className={seaBlockClassname} onClick={handleFire} />;
+  return (
+    <button
+      type="button"
+      className={seaBlockClassname}
+      onClick={handleFire}
+      disabled={!isInteractive}
+      aria-label={isEnemy ? 'Enemy sea block' : 'Your sea block'}
+    />
+  );
 };
 
 export default SeaBlock;

@@ -6,6 +6,9 @@
   aspect-ratio: 1;
   border: 1px solid rgba(33, 96, 146, 0.5);
   background: #1b4d78;
+  padding: 0;
+  margin: 0;
+  outline: none;
   cursor: default;
   transition: background 0.15s, box-shadow 0.15s;
 }
