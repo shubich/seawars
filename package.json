@@ -7,9 +7,7 @@
     "test": "jest --coverage",
     "start": "webpack-dev-server --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
-    "lint": "eslint \"src/**/*.{ts,tsx}\"",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "lint": "eslint \"src/**/*.{ts,tsx}\""
   },
   "repository": {
     "type": "git",
@@ -33,10 +31,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
-    "@storybook/addon-actions": "5.0.8",
-    "@storybook/addon-links": "5.0.8",
-    "@storybook/addons": "5.0.8",
-    "@storybook/react": "5.0.8",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
     "autoprefixer": "^10.4.27",
