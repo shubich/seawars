@@ -23,13 +23,23 @@ const PlayerVsAI: React.FC = () => {
 
       return (
         <React.Fragment>
-          <SeaChart sea={state.playerSea} isActive={!state.isPlayerTurn} />
-          <SeaChart
-            isEnemy={true}
-            sea={state.enemySea}
-            fire={playerMove}
-            isActive={state.isPlayerTurn}
-          />
+          <div className="flex flex-col items-center gap-2 w-full max-w-[400px]">
+            <span className="text-white/70 text-sm font-medium uppercase tracking-wider">
+              Your fleet
+            </span>
+            <SeaChart sea={state.playerSea} isActive={!state.isPlayerTurn} />
+          </div>
+          <div className="flex flex-col items-center gap-2 w-full max-w-[400px]">
+            <span className="text-brass text-sm font-medium uppercase tracking-wider">
+              Enemy waters
+            </span>
+            <SeaChart
+              isEnemy={true}
+              sea={state.enemySea}
+              fire={playerMove}
+              isActive={state.isPlayerTurn}
+            />
+          </div>
         </React.Fragment>
       );
     },

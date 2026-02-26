@@ -2,19 +2,27 @@
 
 .SeaChart {
   display: flex;
-  flex-wrap: wrap;
-  width: 50px * 10;
-  border: 1px solid black;
-
-  @media only screen and (max-width: 1050px) {
-    width: 4.5vw * 10;
-  }
+  flex-direction: column;
+  width: 100%;
+  aspect-ratio: 1;
+  max-width: 400px;
+  border: 1px solid rgba(33, 96, 146, 0.6);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 0 20px -5px rgba(0, 0, 0, 0.3);
 
   @media #{$phone} {
-    width: 9vw * 10;
+    max-width: 90vw;
   }
 }
 
 .SeaChart-Row {
   display: flex;
+  flex: 0 0 10%;
+  min-height: 0;
+}
+
+.SeaChart_inactive {
+  opacity: 0.6;
+  pointer-events: none;
 }

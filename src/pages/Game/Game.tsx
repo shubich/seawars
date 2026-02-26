@@ -12,8 +12,6 @@ import { ISeaActions } from 'actions/sea/types';
 import { ISeaState } from 'reducers/sea/types';
 import { getAIDelay } from 'utils/settings/AIDelay';
 
-import './Game.scss';
-
 const { useState, useEffect, useReducer, useCallback, useMemo } = React;
 
 const Game: React.FC<{
@@ -102,26 +100,52 @@ const Game: React.FC<{
   );
 
   return (
-    <div className="Game">
-      <div className="Game-Control">
-        <button onClick={() => startNewGame()}>New game</button>
-        <label className="Game-Speed">
-          <div>AI delay: {AIDelay} (ms)</div>
+    <div className="min-h-screen w-full max-w-full bg-navy-gradient bg-navy-950 px-4 py-6 md:px-6 md:py-8 overflow-x-hidden">
+      {/* Control bar */}
+      <div className="flex flex-wrap items-center justify-between gap-4 mb-8 md:mb-12">
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => startNewGame()}
+            className="px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white font-medium
+              hover:bg-white/15 hover:border-brass/50 transition-all duration-200"
+          >
+            New game
+          </button>
+          <Link to="/">
+            <button
+              className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white/80 font-medium
+                hover:bg-white/10 hover:text-white transition-all duration-200"
+            >
+              Exit
+            </button>
+          </Link>
+        </div>
+
+        <h1
+          className="flex-1 min-w-0 text-center font-display text-2xl md:text-3xl text-white truncate"
+          title={gameStatus}
+        >
+          {gameStatus}
+        </h1>
+
+        <label className="hidden md:flex flex-col gap-1 min-w-[200px]">
+          <span className="text-white/70 text-sm">AI delay: {AIDelay}ms</span>
           <input
-            className="Game-SpeedRange"
             type="range"
             min="0"
             max="1000"
             value={AIDelay}
             onChange={onSpeedChange}
+            className="w-full h-2 rounded-lg appearance-none bg-white/10"
+            style={{ accentColor: '#c9a227' }}
           />
         </label>
-        <h1 className="Game-Status">{gameStatus}</h1>
-        <Link to="/">
-          <button>Exit</button>
-        </Link>
       </div>
-      <div className="Game-Sea">{renderSea(state, dispatch)}</div>
+
+      {/* Game boards - column when narrow, side-by-side only when enough space (lg+); equal-sized cells */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 w-full max-w-full overflow-x-hidden lg:min-h-[calc(100vh-180px)] place-items-center lg:place-items-end">
+        {renderSea(state, dispatch)}
+      </div>
     </div>
   );
 };

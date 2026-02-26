@@ -18,6 +18,7 @@ const SeaBlock: React.FC<{
       SeaBlock_missFire: !hasShip && hasFire,
       'SeaBlock-Ship': !isEnemy && hasShip,
       'SeaBlock-Ship_killed': hasShip && hasFire,
+      SeaBlock_clickable: isEnemy,
     });
   }, [className, block, isEnemy]);
 
