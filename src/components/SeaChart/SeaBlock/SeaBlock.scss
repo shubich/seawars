@@ -1,4 +1,4 @@
-@import '~styles/screens';
+@use '~styles/screens' as *;
 
 .SeaBlock {
   box-sizing: border-box;

@@ -8,5 +8,8 @@ module.exports = merge(common, {
     // contentBase: './dist', // for assets
     publicPath: '/',
     historyApiFallback: true,
+    watchOptions: {
+      poll: true,
+    },
   }
 });

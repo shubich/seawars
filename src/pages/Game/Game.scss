@@ -1,5 +1,5 @@
-@import '~styles/screens';
-@import '~styles/ellipsis';
+@use '~styles/screens' as *;
+@use '~styles/ellipsis' as *;
 
 .Game {
   padding: 15px;
@@ -39,7 +39,7 @@
   align-items: center;
 
   @media #{$tablet}, #{$desktop} {
-    height: calc(100vh-125px);
+    height: calc(100vh - 125px);
     align-items: flex-end;
   }
 
