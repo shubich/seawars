@@ -38,33 +38,46 @@ const Settings: React.FC<{}> = ({}) => {
   );
 
   return (
-    <div className="Settings">
-      <label className="Settings-Label Settings-Name">
-        <span>Your name: </span>
-        <input type="text" value={name} onChange={handleNameChange} />
-      </label>
-      <label className="Settings-Label Settings-Delay">
-        <span>AI delay: {delay} (ms)</span>
-        <input
-          className="Settings-DelayInput"
-          type="range"
-          min="0"
-          max="1000"
-          value={delay}
-          onChange={handleDelayChange}
-        />
-      </label>
-      <label className="Settings-Label Settings-Sound">
-        <span>Sound: </span>
-        <input
-          type="checkbox"
-          checked={soundCheckmark === SoundValues.ON}
-          onChange={handleSoundChange}
-        />
-      </label>
-      <Link to="/">
-        <button>Back to main menu</button>
-      </Link>
+    <div className="Settings min-h-screen w-full bg-navy-gradient bg-navy-950 flex flex-col items-center justify-center px-6 py-12">
+      <div className="w-full max-w-[280px] space-y-4">
+        <label className="Settings-Label Settings-Name block">
+          <span className="text-white/80 block mb-1">Your name:</span>
+          <input
+            type="text"
+            value={name}
+            onChange={handleNameChange}
+            className="w-full px-4 py-2 rounded-lg bg-white border border-white/40 text-navy-950 placeholder-gray-500 focus:border-brass focus:outline-none focus:ring-2 focus:ring-brass/30"
+            style={{ WebkitTextFillColor: '#0a1628' }}
+          />
+        </label>
+        <label className="Settings-Label Settings-Delay block">
+          <span className="text-white/80 block mb-1">AI delay: {delay} (ms)</span>
+          <input
+            type="range"
+            min="0"
+            max="1000"
+            value={delay}
+            onChange={handleDelayChange}
+            className="w-full h-2 rounded-lg appearance-none bg-white/10 accent-brass"
+            style={{ accentColor: '#c9a227' }}
+          />
+        </label>
+        <label className="Settings-Label Settings-Sound flex items-center gap-2">
+          <span className="text-white/80">Sound:</span>
+          <input
+            type="checkbox"
+            checked={soundCheckmark === SoundValues.ON}
+            onChange={handleSoundChange}
+            className="w-4 h-4 rounded accent-brass"
+            style={{ accentColor: '#c9a227' }}
+          />
+        </label>
+        <Link to="/" className="block mt-6">
+          <button className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white font-medium hover:bg-white/15 hover:border-brass/50 transition-all">
+            Back to main menu
+          </button>
+        </Link>
+      </div>
     </div>
   );
 };
